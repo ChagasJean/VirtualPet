@@ -26,6 +26,8 @@ class VirtualPet:
         self.fome = 30
         self.higiene = 30
         self.felicidade = 30
+        self.saude_fisica = 30
+        self.saude_mental = 30
         self.vivo = True
 
     # CRIADO O METODO ALIMENTAR E VERIFICAÇÃO DOS LIMITES
@@ -33,13 +35,17 @@ class VirtualPet:
         self.fome += 5
         self.higiene -= 5
         self.felicidade += 5
+        self.saude_fisica -= 10
+        self.saude_mental += 5
         self.verificar_limites()
 
     # CRIADO O METODO DE BANHO E VERIFICAÇÃO DE LIMITES
     def banhar(self):
         self.higiene += 5
         self.fome -= 5
-        self. felicidade += 5
+        self.felicidade += 5
+        self.saude_fisica += 10
+        self.saude_mental += 5
         self.verificar_limites()
 
     # CRIADO O METODO BRINCAR E VERIFICAÇÃO DE LIMITES
@@ -47,6 +53,7 @@ class VirtualPet:
         self.felicidade += 5
         self.fome -= 5
         self.higiene -= 5
+        self.saude_mental += 5
         self.verificar_limites()
 
     # CRIADO O METODO DE FUMAR UM CIGARRO E VERIFICAÇÃO DE LIMITES
@@ -54,6 +61,8 @@ class VirtualPet:
         self.felicidade += 5
         self.fome -= 5
         self.higiene -= 5
+        self.saude_fisica -= 10
+        self.saude_mental += 10
         self.verificar_limites()
 
     # AQUI É CRIADO A DEFINIÇÃO DE LIMITES PARA QUE OS NÚMEROS NÃO PASSEM DOS VALORES ESTIPULADOS
@@ -73,6 +82,16 @@ class VirtualPet:
             self.felicidade = 0
         elif self.felicidade > 100:
             self.felicidade = 100
+
+        if self.saude_fisica < 0:
+            self.saude_fisica = 0
+        elif self.saude_fisica > 100:
+            self.saude_fisica = 100
+
+        if self.saude_mental < 0:
+            self.saude_mental = 0
+        elif self.saude_mental > 100:
+            self.saude_mental = 100
 
     # AQUI É CRIADO O METODO PARA VERIFICAR SE O PET IRA MORRER DE FOME OU NÃO
     def verificar_fome(self):
@@ -119,12 +138,44 @@ class VirtualPet:
             return False
         return True
 
+    # AQUI É CRIADO O METO PARA VERIFICAR COMO ESTÁ A SAUDE FISÍCA DO PET
+    def verificar_saudefisica(self):
+
+        if self.saude_fisica == 0:
+            self.vivo = False
+            mortes_saudefisica = [
+                "morreu imenso.",
+                "morreu de forma precária.",
+                "morreu fodido.",
+            ]
+            morte = random.choice(mortes_saudefisica)
+            print("{} {}".format(self.nome, morte))
+            return False
+        return True
+
+    # AQUI É CRIADO PARA VERIFICAR A SAUDE MENTAL DO PET
+    def verificar_saudemental(self):
+
+        if self.saude_mental == 0:
+            self.vivo = False
+            mortes_saudemental = [
+                "morreu esgotado.",
+                "morreu mal demais.",
+                "morreu finado.",
+            ]
+            morte = random.choice(mortes_saudemental)
+            print("{} {}".format(self.nome, morte))
+            return False
+        return True
+
     # AQUI É CRIADO O METODO DE STATUS PARA MOSTRAR NO PROGRAMA PRINCIPAL COMO O PET ESTÁ
     def status(self):
         print("Nome: {}".format(self.nome))
         print("Fome: {}".format(self.fome))
         print("Higiene: {}".format(self.higiene))
         print("Felicidade: {}".format(self.felicidade))
+        print("Saúde mental: {}".format(self.saude_mental))
+        print("Saúde fisíca: {}".format(self.saude_fisica))
 
 # AQUI É O CÓDIGO PRINCIPAL QUE RODA O PROGRAMA
 
@@ -188,13 +239,18 @@ def main():
             pet.verificar_fome()
             pet.verificar_felicidade()
             pet.verificar_higiene()
+            pet.verificar_saudefisica()
+            pet.verificar_saudemental()
 
         # SE ESCOLHER 6, O PET VAI SER ABANDONADO E O PROGRAMA PARA
         elif escolha == "6":
-            print("Pensei que poderia te fazer mais feliz...")
-            pet.verificar_fome()
-            pet.verificar_felicidade()
-            pet.verificar_higiene()
+            abandonos = [
+                "Você é um otario por abandonar {}.".format(nome_pet),
+                "Parabéns, seu desprezível.",
+                "Espero que sofra por abandona-lo.",
+            ]
+            resultado = random.choice(abandonos)
+            print("{}".format(resultado))
             break
 
         # SE COLOCA ALGUM NÚMERO MENOR QUE 1 OU MAIOR QUE 6, O PROGRAMA DÁ ERRO E PEDE PARA INSERIR OUTRA OPÇÃO
