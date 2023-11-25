@@ -12,6 +12,8 @@
 # =================================================
 
 import random
+import pandas as pd
+import win32com.client as win32
 
 # CRIAÇÃO DE CLASS PARA O PROGRAMA RODAR
 
