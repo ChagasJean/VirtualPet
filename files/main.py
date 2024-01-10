@@ -14,6 +14,8 @@
 import random
 import pandas as pd
 import win32com.client as win32
+import tkinter as tk
+from tkinter import messagebox
 
 # CRIAÇÃO DE CLASS PARA O PROGRAMA RODAR
 
@@ -177,6 +179,30 @@ class VirtualPet:
         print("Saúde mental: {}".format(self.saude_mental))
         print("Saúde fisíca: {}".format(self.saude_fisica))
 
+    def alimentar_pet(self):
+        self.alimentar()
+        self.update_status()
+
+    def banhar_pet(self):
+        self.alimentar()
+        self.update_status()
+
+    def fumar_pet(self):
+        self.fumar()
+        self.update_status()
+
+    def brincar_pet(self):
+        self.brincar()
+        self.update_status()
+
+    def abandonar_pet(self):
+        resultado = random.choice([
+            "Você é um otário por abandonar {}.".format(self.nome),
+            "Parabéns, seu desprezível.",
+            "Espero que sofra por abandona-lo."
+        ])
+        messagebox.showinfo("Resultado", resultado)
+        root.destroy()
 # AQUI É O CÓDIGO PRINCIPAL QUE RODA O PROGRAMA
 
 
